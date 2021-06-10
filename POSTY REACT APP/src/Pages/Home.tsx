@@ -49,7 +49,7 @@ const Home: React.FC<{}> = (): any => {
             align={isLargerThan600px ? "flex-start" : "center"}
             ml={isLargerThan600px ? "18%" : "2%"}
           >
-            {postState.posts?.map((post) => (
+            {postState.posts.length && postState.posts?.map((post) => (
               <span key={post.ID}>
                 <PostCard post={post} />
               </span>

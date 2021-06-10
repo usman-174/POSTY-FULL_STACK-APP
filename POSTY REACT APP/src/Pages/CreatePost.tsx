@@ -27,7 +27,7 @@ const CreatePost: React.FC<{}> = (): any => {
         duration: 2000,
       });
     } else if (title.length < 6) {
-      toast({
+     return  toast({
         title: `Title length must be greater then 5`,
         status: "error",
         position: "top-right",
@@ -35,7 +35,7 @@ const CreatePost: React.FC<{}> = (): any => {
         duration: 2000,
       });
     } else if (body.length < 30) {
-      toast({
+      return toast({
         title: `Body length must be atleast 50 characters`,
         status: "error",
         position: "top-right",
@@ -46,7 +46,7 @@ const CreatePost: React.FC<{}> = (): any => {
     try {
       const { data } = await axios.post(`${process.env.REACT_APP_URL}/x/post`, {
         title: title.trim(),
-        body: body.trim(),
+        body
       });
 
       if (data.error) {

@@ -6,9 +6,12 @@ import {
   Kbd,
   Spacer,
   Spinner,
-  Text,
-  Tooltip,
-  useMediaQuery,
+  Text, Tooltip,
+
+
+
+
+  useMediaQuery
 } from "@chakra-ui/react";
 import axios from "axios";
 import dayjs from "dayjs";
@@ -30,10 +33,11 @@ const PostCard: React.FC<IPoPropstCard> = ({
     title,
     body,
     userid: creatorId,
+    CreatedAt,
     UpdatedAt,
     likes,
     ID: postId,
-    User: { username },
+    User
   },
   ...rest
 }): any => {
@@ -94,7 +98,7 @@ const PostCard: React.FC<IPoPropstCard> = ({
 
           dispatch(UpdatePosts(updatedPosts));
         }
-        
+
         if (data.msg.includes("Unliked")) {
           setloading(false);
 
@@ -132,9 +136,9 @@ const PostCard: React.FC<IPoPropstCard> = ({
       >
         {title}
       </Heading>
-      {username && (
+      {User.username && (
         <Text as="small">
-          By <span style={{ color: "red" }}>{username.toUpperCase()}</span>
+          By <span style={{ color: "red" }}>{User.username.toUpperCase()}</span>
         </Text>
       )}
       <Text as="small" mx="1">
@@ -173,7 +177,24 @@ const PostCard: React.FC<IPoPropstCard> = ({
           <>
             <Spacer />
             <Box textAlign="right">
-              <DropMenu deletePost={deletePost} />
+           
+
+              <DropMenu
+                deletePost={deletePost}
+                post={
+                  {
+                    title,
+                    body,
+                    userid: creatorId,
+                    UpdatedAt,
+                    likes,CreatedAt,
+                    ID: postId,
+                    User
+                  }
+                  
+                }
+                />
+               
             </Box>
           </>
         )}

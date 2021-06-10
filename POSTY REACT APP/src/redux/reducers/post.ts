@@ -6,7 +6,7 @@ import { IUSER } from "./user";
 export interface IPOST {
   ID: string | number;
   title: string;
-  body:  string;
+  body: string;
   userid: number | string;
   CreatedAt: string;
   UpdatedAt: string;
@@ -19,26 +19,26 @@ export interface ILIKES {
   posts: string;
 }
 
-export const fetchPosts = createAsyncThunk("posts/getposts", async (): Promise<
-  string | IPOST[]
-> => {
-  try {
-    console.log(process.env.REACT_APP_URL);
-    
-    // const user = store.getState().user;
-    const { data } = await axios.get(`${process.env.REACT_APP_URL}/getposts`);
+export const fetchPosts = createAsyncThunk(
+  "posts/getposts",
+  async (): Promise<string | IPOST[]> => {
+    try {
+      console.log(process.env.REACT_APP_URL);
 
-    if (!data.error) {
-      
-      return data;
+      // const user = store.getState().user;
+      const { data } = await axios.get(`${process.env.REACT_APP_URL}/getposts`);
+
+      if (!data.error) {
+        return data;
+      }
+
+      throw new Error(data.msg);
+    } catch (error) {
+      console.error("error = ", error.message);
+      return error.message;
     }
-
-    throw new Error(data.msg);
-  } catch (error) {
-    console.error("error = ", error.message);
-    return error.message;
   }
-});
+);
 
 // Define the initial state using that type
 const initialState: { loading: boolean; posts: IPOST[] } = {
@@ -64,6 +64,15 @@ export const postsSlice = createSlice({
       );
       state.loading = false;
     },
+
+    EditPost: (state, action: PayloadAction<IPOST>) => {
+      const index = state.posts.findIndex((e) => {
+       return e.ID === action.payload.ID;
+      });
+      console.log("index=",index);
+      
+      state.posts[index] = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchPosts.pending, (state) => {
@@ -81,6 +90,6 @@ export const postsSlice = createSlice({
   },
 });
 
-export const { RemovePost, SetPosts } = postsSlice.actions;
+export const { RemovePost, SetPosts,EditPost } = postsSlice.actions;
 
 export default postsSlice.reducer;
