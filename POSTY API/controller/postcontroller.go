@@ -180,8 +180,8 @@ func UpdatePost(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println(err.Error())
 		respondWithJSON(w, map[string]string{
-			"Error": "Invalid arguments 1",
-			"Msg":   err.Error(),
+			"error": "Invalid arguments 1",
+			"msg":   err.Error(),
 		})
 
 		return
@@ -192,8 +192,8 @@ func UpdatePost(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println(err.Error())
 		respondWithJSON(w, map[string]string{
-			"Error": "Cannot convert string id to int id",
-			"Msg":   err.Error(),
+			"error": "Cannot convert string id to int id",
+			"msg":   err.Error(),
 		})
 
 		return
@@ -202,8 +202,8 @@ func UpdatePost(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println(err.Error())
 		respondWithJSON(w, map[string]string{
-			"Error": "Invalid arguments 2",
-			"Msg":   err.Error(),
+			"error": "Post not found.",
+			"msg":   err.Error(),
 		})
 
 		return
@@ -211,7 +211,7 @@ func UpdatePost(w http.ResponseWriter, r *http.Request) {
 
 	if foundPost.UserID != user.ID {
 		respondWithJSON(w, map[string]string{
-			"Error": "Only the Post Author can Update the post",
+			"error": "Only the Post Author can Update the post",
 		})
 
 		return
@@ -222,8 +222,8 @@ func UpdatePost(w http.ResponseWriter, r *http.Request) {
 	if err != nil {
 		fmt.Println(err.Error())
 		respondWithJSON(w, map[string]string{
-			"Error": "Invalid arguments 3",
-			"Msg":   err.Error(),
+			"error": "There was an error updating the post.",
+			"msg":   err.Error(),
 		})
 
 		return
