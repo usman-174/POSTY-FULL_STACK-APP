@@ -3,11 +3,11 @@ package app
 import (
 	"github.com/gorilla/mux"
 	"github.com/usman-174/controller"
-	"github.com/usman-174/database"
+	
 )
 
 func Router() *mux.Router {
-	database.ConnectDataBase()
+	
 
 	router := mux.NewRouter()
 	router.HandleFunc("/register", controller.Register).Methods("POST")
